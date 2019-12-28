@@ -3,7 +3,7 @@ import { Route, Switch, BrowserRouter, Redirect } from 'react-router-dom';
 
 import './App.css';
 
-import StringCalculator from './containers/StringCalculator/StringCalculator';
+import WithCustomDelimiter from './containers/StringCalculator/WithCustomDelimiter/WithCustomDelimiter';
 import Layout from './components/Layout/Layout';
 
 
@@ -13,7 +13,7 @@ const app = (props) => {
       <BrowserRouter>
         <Layout>
           <Switch>
-            <Route path="/" component={StringCalculator} />
+            <Route path="/" component={WithCustomDelimiter} />
             <Redirect to="/" />
           </Switch>
         </Layout>

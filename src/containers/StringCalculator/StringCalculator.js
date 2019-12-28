@@ -22,12 +22,13 @@ const stringCalculator = (props) => {
         const inputArr = modifiedInput.split(',');
         const zeroArray = inputArr.filter(n => isNaN(n) || n === "").map(v => 0);
         const numberOnlyArray = inputArr.filter(n => !(n === "") && !isNaN(n) ).map(v => parseInt(v, 10));
-        // To use in Exeption Handling in Step 4
-        // if(numberOnlyArray.length > MAX_VALUES) {
-        //     setException("Only two numbers allowed, please reduce your input.")
-        //     return;
-        // }
-        setInputNumArray([...numberOnlyArray, ...zeroArray]);
+        const negativeNumberArray = numberOnlyArray.filter(n => n < 0);
+        if(negativeNumberArray.length) {
+            setException(`These negative numbers were found: ${negativeNumberArray.join(',')}. Please use only positive numbers.`)
+            return;
+        }
+        const positiveNumberArray = numberOnlyArray.filter(n => n  > 0)
+        setInputNumArray([...positiveNumberArray, ...zeroArray]);
     }
 
     const evaluateSum = () => {
