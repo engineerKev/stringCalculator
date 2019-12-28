@@ -8,18 +8,18 @@ const stringCalculator = (props) => {
     const [inputStateVal, setInputStateVal] = useState("");
     const [inputNumArray, setInputNumArray] = useState([0]);
     const [exception, setException] = useState("")
-    const [result, setResult ] = useState(null)
-    const { placeHolderText, arrayMaxLength } = props;
-    const MAX_VALUES = 2;
+    const [result, setResult ] = useState(null);
+    const { placeHolderText } = props;
 
     const createNumArray = () => {
         const inputArr = inputStateVal.split(',');
         const zeroArray = inputArr.filter(n => isNaN(n) || n === "").map(v => 0);
         const numberOnlyArray = inputArr.filter(n => !(n === "") && !isNaN(n) ).map(v => parseInt(v, 10));
-        if(numberOnlyArray.length > MAX_VALUES) {
-            setException("Only two numbers allowed, please reduce your input.")
-            return;
-        }
+        // To use in Exeption Handling in Step 4
+        // if(numberOnlyArray.length > MAX_VALUES) {
+        //     setException("Only two numbers allowed, please reduce your input.")
+        //     return;
+        // }
         setInputNumArray([...numberOnlyArray, ...zeroArray]);
     }
 
