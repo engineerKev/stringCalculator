@@ -17,11 +17,16 @@ const stringCalculator = (props) => {
         return newCommaOnlyInput;
     }
 
+    const mapAllowedNumbers = (str) => {
+        const number = parseInt(str,10)
+        return number > 1000 ? 0 : number;
+    }
+
     const createNumArray = () => {
         const modifiedInput = replaceCustomDelimeter();
         const inputArr = modifiedInput.split(',');
-        const zeroArray = inputArr.filter(n => isNaN(n) || n === "").map(v => 0);
-        const numberOnlyArray = inputArr.filter(n => !(n === "") && !isNaN(n) ).map(v => parseInt(v, 10));
+        const zeroArray = inputArr.filter(n => isNaN(n) || n === "" ).map(v => 0);
+        const numberOnlyArray = inputArr.filter(n => !(n === "") && !isNaN(n) ).map(mapAllowedNumbers);
         const negativeNumberArray = numberOnlyArray.filter(n => n < 0);
         if(negativeNumberArray.length) {
             setException(`These negative numbers were found: ${negativeNumberArray.join(',')}. Please use only positive numbers.`)
