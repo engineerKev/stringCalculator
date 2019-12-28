@@ -11,8 +11,15 @@ const stringCalculator = (props) => {
     const [result, setResult ] = useState(null);
     const { placeHolderText } = props;
 
+    const replaceCustomDelimeter = () => {
+        const regex = /\\n/g;
+        const newCommaOnlyInput = inputStateVal.replace(regex,",");
+        return newCommaOnlyInput;
+    }
+
     const createNumArray = () => {
-        const inputArr = inputStateVal.split(',');
+        const modifiedInput = replaceCustomDelimeter();
+        const inputArr = modifiedInput.split(',');
         const zeroArray = inputArr.filter(n => isNaN(n) || n === "").map(v => 0);
         const numberOnlyArray = inputArr.filter(n => !(n === "") && !isNaN(n) ).map(v => parseInt(v, 10));
         // To use in Exeption Handling in Step 4

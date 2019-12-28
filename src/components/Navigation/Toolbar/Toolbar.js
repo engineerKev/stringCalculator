@@ -10,7 +10,7 @@ const toolbar = (props) => {
             {
                 active: false,
                 path: "/",
-                text: "Comma Separated",
+                text: "String Calculator",
             }
         ];
         const indexOfRoute = getIndexOfCurrentRoute(navElements);
