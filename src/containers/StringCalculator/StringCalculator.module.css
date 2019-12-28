@@ -1,0 +1,39 @@
+.CalculatorUIContainer {
+    display: flex;
+    flex-direction: row;
+    width: 75vw;
+    margin: 32px auto
+}
+
+.CalculatorInput, .CalculatorInputException {
+    border-radius: 3px;
+    border: 1px solid #d0d0d0;
+    width: 90%;
+    padding: 10px;
+    height: 32px;
+    margin: 4px;
+    font-size: 16px;
+}
+
+.CalculatorInputException {
+     border: 2px solid red;
+}
+
+.CalculatorInput:focus {
+    outline: 2px solid #000099;
+}
+
+.ResultAnnouncement, .Exception {
+    width: 100%;
+    margin: 0 auto;
+    font-size: 24px;
+    font-weight: semi-bold;
+}
+
+.Result{
+    color: #00cc00;
+}
+
+.Exception {
+    color: red;
+}
