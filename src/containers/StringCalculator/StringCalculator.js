@@ -11,9 +11,25 @@ const stringCalculator = (props) => {
     const [result, setResult ] = useState(null);
     const { placeHolderText } = props;
 
+    const returnCustomDelimeter = ()  => {
+        const anyCustomDelimeterRegex = /(\/{2}[^\d])/g;
+        const dirtyCustomDelimeter = inputStateVal.match(anyCustomDelimeterRegex);
+        const cleanCustomDelimeter = dirtyCustomDelimeter && dirtyCustomDelimeter.pop().replace("//", "");
+        return cleanCustomDelimeter;
+        
+    }
+    const cleanInput = () => {
+        const newLineRegex = /\\n/g;
+        const newLineIndex = inputStateVal.search(newLineRegex);
+        return inputStateVal.substring(newLineIndex+2, inputStateVal.length);
+
+    }
     const replaceCustomDelimeter = () => {
-        const regex = /\\n/g;
-        const newCommaOnlyInput = inputStateVal.replace(regex,",");
+        const customDelimter = returnCustomDelimeter();
+        const cleanedInput = cleanInput();
+        const newLineRegex = /\\n/g;
+        const newSansCustomDelimeterInput = cleanedInput.replace(customDelimter, ",");
+        const newCommaOnlyInput = newSansCustomDelimeterInput.replace(newLineRegex,",");
         return newCommaOnlyInput;
     }
 
