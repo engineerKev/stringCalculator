@@ -11,33 +11,42 @@ const stringCalculator = (props) => {
     const [result, setResult ] = useState(null);
     const { placeHolderText } = props;
 
-    const returnCustomDelimeter = ()  => {
-        const anyCustomDelimeterRegex = /(\/{2}[^\d])/g;
-        const dirtyCustomDelimeter = inputStateVal.match(anyCustomDelimeterRegex);
-        const cleanCustomDelimeter = dirtyCustomDelimeter && dirtyCustomDelimeter.pop().replace("//", "");
-        return cleanCustomDelimeter;
+    const returnCustomDelimeters = ()  => {
+
+        const anyLengthCustomDelimeterRegex = /(\/{2}\[{1}[^\d]+\]{1})/g;
+        const dirtyAnyLengthCustomDelimeter = inputStateVal.match(anyLengthCustomDelimeterRegex);
+        const anyLengthCleanUpRegex = /[\[\]\/]/g;
+        const cleanAnyLengthCustomDelimeter = dirtyAnyLengthCustomDelimeter && dirtyAnyLengthCustomDelimeter.pop().replace(anyLengthCleanUpRegex, "");
+
+        const anySingleCustomDelimeterRegex = /(\/{2}[^\d])/g;
+        const dirtySingleCustomDelimeter = inputStateVal.match(anySingleCustomDelimeterRegex);
+        const cleanSingleCustomDelimeter = dirtySingleCustomDelimeter && dirtySingleCustomDelimeter.pop().replace(/[\/\[]/g, "");
+
+        const singleDelimeter = cleanSingleCustomDelimeter === null ? cleanSingleCustomDelimeter : new RegExp(`[${cleanSingleCustomDelimeter}]`, 'g');
+        const anyLengthDelimeter = cleanAnyLengthCustomDelimeter === null ? cleanAnyLengthCustomDelimeter: new RegExp(`\\${cleanAnyLengthCustomDelimeter.charAt(0)}+`, "g");
+
+        return [singleDelimeter, anyLengthDelimeter];
         
     }
     const cleanInput = () => {
         const newLineRegex = /\\n/g;
         const newLineIndex = inputStateVal.search(newLineRegex);
-        // if(newLineIndex < 0) {
-        //     return inputStateVal;
-        // }
         return inputStateVal.substring(newLineIndex+2, inputStateVal.length);
 
     }
     const replaceCustomDelimeter = () => {
-        const customDelimter = returnCustomDelimeter();
+        const [singleCustomDelimeter, anyLengthCustomDelimeter] = returnCustomDelimeters();
         let cleanedInput;
-        if(customDelimter) {
+        if(singleCustomDelimeter || anyLengthCustomDelimeter) {
             cleanedInput = cleanInput();
         } else {
             cleanedInput = inputStateVal;
         }
         const newLineRegex = /\\n/g;
-        const newSansCustomDelimeterInput = cleanedInput.replace(customDelimter, ",");
-        const newCommaOnlyInput = newSansCustomDelimeterInput.replace(newLineRegex,",");
+        const newSansSingleCustomDelimeterInput = cleanedInput.replace(singleCustomDelimeter, ",");
+        const newSansAnyLengthCustomDelimeterInput = newSansSingleCustomDelimeterInput.replace(anyLengthCustomDelimeter, ",");
+        const newCommaOnlyInput = newSansAnyLengthCustomDelimeterInput.replace(newLineRegex,",");
+        // debugger;
         return newCommaOnlyInput;
     }
 
