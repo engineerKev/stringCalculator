@@ -21,15 +21,20 @@ const stringCalculator = (props) => {
     const cleanInput = () => {
         const newLineRegex = /\\n/g;
         const newLineIndex = inputStateVal.search(newLineRegex);
-        if(newLineIndex < 0) {
-            return inputStateVal;
-        }
+        // if(newLineIndex < 0) {
+        //     return inputStateVal;
+        // }
         return inputStateVal.substring(newLineIndex+2, inputStateVal.length);
 
     }
     const replaceCustomDelimeter = () => {
         const customDelimter = returnCustomDelimeter();
-        const cleanedInput = cleanInput();
+        let cleanedInput;
+        if(customDelimter) {
+            cleanedInput = cleanInput();
+        } else {
+            cleanedInput = inputStateVal;
+        }
         const newLineRegex = /\\n/g;
         const newSansCustomDelimeterInput = cleanedInput.replace(customDelimter, ",");
         const newCommaOnlyInput = newSansCustomDelimeterInput.replace(newLineRegex,",");
