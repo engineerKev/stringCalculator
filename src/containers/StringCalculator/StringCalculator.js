@@ -21,6 +21,9 @@ const stringCalculator = (props) => {
     const cleanInput = () => {
         const newLineRegex = /\\n/g;
         const newLineIndex = inputStateVal.search(newLineRegex);
+        if(newLineIndex < 0) {
+            return inputStateVal;
+        }
         return inputStateVal.substring(newLineIndex+2, inputStateVal.length);
 
     }
