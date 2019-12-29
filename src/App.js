@@ -1,8 +1,6 @@
 import React from 'react';
 import { Route, Switch, BrowserRouter, Redirect } from 'react-router-dom';
 
-import './App.css';
-
 import WithCustomDelimiter from './containers/StringCalculator/WithCustomDelimiter/WithCustomDelimiter';
 import Layout from './components/Layout/Layout';
 

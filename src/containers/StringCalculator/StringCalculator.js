@@ -13,7 +13,7 @@ const stringCalculator = (props) => {
 
     const returnCustomDelimeters = ()  => {
 
-        const anyLengthCustomDelimeterRegex = /(\/{2}\[{1}[^\d]+\]{1})/g;
+        const anyLengthCustomDelimeterRegex = /(\/{2}\[(.*)\])/g;
         const dirtyAnyLengthCustomDelimeter = inputStateVal.match(anyLengthCustomDelimeterRegex);
         const anyLengthCleanUpRegex = /[\[\]\/]/g;
         const cleanAnyLengthCustomDelimeter = dirtyAnyLengthCustomDelimeter && dirtyAnyLengthCustomDelimeter.pop().replace(anyLengthCleanUpRegex, "");
@@ -23,7 +23,7 @@ const stringCalculator = (props) => {
         const cleanSingleCustomDelimeter = dirtySingleCustomDelimeter && dirtySingleCustomDelimeter.pop().replace(/[\/\[]/g, "");
 
         const singleDelimeter = cleanSingleCustomDelimeter === null ? cleanSingleCustomDelimeter : new RegExp(`[${cleanSingleCustomDelimeter}]`, 'g');
-        const anyLengthDelimeter = cleanAnyLengthCustomDelimeter === null ? cleanAnyLengthCustomDelimeter: new RegExp(`\\${cleanAnyLengthCustomDelimeter.charAt(0)}+`, "g");
+        const anyLengthDelimeter = cleanAnyLengthCustomDelimeter === null ? cleanAnyLengthCustomDelimeter: new RegExp(`[${cleanAnyLengthCustomDelimeter}]`, "g");
 
         return [singleDelimeter, anyLengthDelimeter];
         
@@ -46,12 +46,12 @@ const stringCalculator = (props) => {
         const newSansSingleCustomDelimeterInput = cleanedInput.replace(singleCustomDelimeter, ",");
         const newSansAnyLengthCustomDelimeterInput = newSansSingleCustomDelimeterInput.replace(anyLengthCustomDelimeter, ",");
         const newCommaOnlyInput = newSansAnyLengthCustomDelimeterInput.replace(newLineRegex,",");
-        // debugger;
+
         return newCommaOnlyInput;
     }
 
     const mapAllowedNumbers = (str) => {
-        const number = parseInt(str,10)
+        const number = parseInt(str,10);
         return number > 1000 ? 0 : number;
     }
 
@@ -93,7 +93,7 @@ const stringCalculator = (props) => {
             </div>
 
             {result !== null && !exception.length ? 
-                <div className={classes.ResultAnnouncement}>The sum of the values is: {styleResult()}</div>
+                <div id={"resultDiv"} className={classes.ResultAnnouncement}>The sum of the values is: {styleResult()}</div>
                 :
                 null
             }
