@@ -11,6 +11,7 @@
     "babel-jest": "^25.0.0",
     "babel-loader": "8.0.4",
     "babel-plugin-named-asset-import": "^0.3.0",
+    "babel-plugin-react-css-modules": "^5.2.6",
     "babel-preset-react-app": "^7.0.0",
     "bfj": "6.1.1",
     "case-sensitive-paths-webpack-plugin": "2.1.2",
@@ -18,8 +19,6 @@
     "css-loader": "1.0.0",
     "dotenv": "6.0.0",
     "dotenv-expand": "4.2.0",
-    "enzyme": "^3.11.0",
-    "enzyme-adapter-react-16": "^1.15.2",
     "eslint": "5.6.0",
     "eslint-config-react-app": "^3.0.6",
     "eslint-loader": "2.1.1",
@@ -43,14 +42,14 @@
     "postcss-loader": "3.0.0",
     "postcss-preset-env": "6.3.1",
     "postcss-safe-parser": "4.0.1",
-    "react": "^16.8.0",
+    "react": "~16.8.5",
     "react-app-polyfill": "^0.2.0",
     "react-dev-utils": "^7.0.1",
-    "react-dom": "^16.8.0",
+    "react-dom": "~16.8.5",
     "react-redux": "^6.0.0",
     "react-router": "^4.3.1",
     "react-router-dom": "^5.1.2",
-    "react-test-renderer": "^16.12.0",
+    "react-test-renderer": "~16.8.5",
     "redux": "^4.0.1",
     "redux-thunk": "^2.3.0",
     "resolve": "1.8.1",
@@ -79,7 +78,7 @@
     "not op_mini all"
   ],
   "jest": {
-    "setupTestFrameworkScriptFile": "<rootDir>/src/setupTests.js",
+    "setupTestFrameworkScriptFile": "<rootDir>/test/setupTests.js",
     "collectCoverageFrom": [
       "src/**/*.{js,jsx,ts,tsx}",
       "!src/**/*.d.ts"
@@ -122,7 +121,23 @@
   },
   "babel": {
     "presets": [
+      "@babel/preset-env",
       "react-app"
+    ],
+    "plugins": [
+      [
+        "babel-plugin-react-css-modules",
+        {
+          "webpackHotModuleReloading": true,
+          "autoResolveMultipleImports": true
+        }
+      ]
     ]
+  },
+  "devDependencies": {
+    "babel-preset-env": "^1.7.0",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.2",
+    "babel-preset-react-app": "^7.0.0"
   }
 }
