@@ -11,7 +11,15 @@ const app = (props) => {
       <BrowserRouter>
         <Layout>
           <Switch>
-            <Route path="/" component={WithCustomDelimiter} />
+            <Route path="/" component={() => {
+              return (
+                <WithCustomDelimiter
+                  alternateDelimiter={false}
+                  allowNegatives={true}
+                  removeUpperBound={false}
+                />
+              );
+            }} />
             <Redirect to="/" />
           </Switch>
         </Layout>

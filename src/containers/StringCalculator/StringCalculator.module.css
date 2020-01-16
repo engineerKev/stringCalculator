@@ -2,7 +2,8 @@
     display: flex;
     flex-direction: row;
     width: 75vw;
-    margin: 32px auto
+    margin: 32px auto;
+    justify-content: center;
 }
 
 .CalculatorInput, .CalculatorInputException {
@@ -23,7 +24,7 @@
     outline: 2px solid #000099;
 }
 
-.ResultAnnouncement, .Exception {
+.ResultAnnouncement, .Exception, .Formula {
     width: 100%;
     margin: 0 auto;
     font-size: 24px;
@@ -37,4 +38,27 @@
 
 .Exception {
     color: red;
+}
+
+.RadioButtonsContainer {
+    display: flex;
+    justify-content: center;
+    width: 75vw;
+    flex-wrap: wrap;
+    margin: 0 auto;
+}
+
+.OperationsInstructions {
+    font-size: 18px;
+    width: 75vw;
+    text-align: center;
+    margin: 20px 0;
+}
+
+.LabelText {
+    margin-right: 8px;
+}
+
+.LabelText input {
+    height: 15px;
 }
